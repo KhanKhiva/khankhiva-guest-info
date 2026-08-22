@@ -3,50 +3,969 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khan Khiva Hotel | Guest Information</title>
-<link rel="stylesheet" href="style.css">
+<title>Khan Khiva Hotel — Guest Information</title>
+<meta name="description" content="Khan Khiva Hotel guest information: check-in/check-out, breakfast, facilities, services and emergency instructions in English, Русский and O'zbekcha.">
+<link rel="icon" type="image/png" href="data:image/png;base64,{{FAVICON_B64}}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#4FB3C6;
+    --teal-dark:#2E93A6;
+    --teal-deep:#0B4A54;
+    --teal-deepest:#062F37;
+    --navy:#33414A;
+    --navy-soft:#5B6A72;
+    --cream:#F6F3EC;
+    --cream-alt:#EFEAE0;
+    --white:#FFFFFF;
+    --gold:#C3A973;
+    --gold-soft:#E4D9BE;
+    --link-blue:#3B86F7;
+    --shadow:0 10px 26px rgba(51,65,74,0.10);
+    --shadow-sm:0 4px 12px rgba(51,65,74,0.08);
+    --radius-lg:26px;
+    --radius-md:18px;
+    --radius-sm:12px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    font-family:'Nunito',-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+    background:#DCD5C6;
+    color:var(--navy);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  .page{
+    max-width:600px;
+    margin:0 auto;
+    background:var(--cream);
+    min-height:100vh;
+    box-shadow:0 0 70px rgba(0,0,0,0.18);
+    overflow:hidden;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    background-image:
+      linear-gradient(180deg, rgba(10,18,22,0.30) 0%, rgba(10,18,22,0.38) 40%, rgba(9,20,24,0.72) 78%, var(--cream) 100%),
+      url(data:image/jpeg;base64,{{HERO_B64}});
+    background-size:cover;
+    background-position:center 42%;
+    padding:28px 24px 26px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
+
+  .logo-badge{
+    background:var(--white);
+    width:118px;
+    height:113px;
+    border-radius:24px;
+    box-shadow:0 12px 28px rgba(0,0,0,0.28);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px;
+  }
+  .logo-badge img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+  }
+
+  .hero-title{
+    color:var(--white);
+    font-weight:900;
+    font-size:1.82rem;
+    letter-spacing:0.06em;
+    margin:22px 0 6px;
+    text-shadow:0 2px 14px rgba(0,0,0,0.35);
+  }
+  .hero-subtitle{
+    color:rgba(255,255,255,0.94);
+    font-weight:600;
+    font-size:1.12rem;
+    margin:0 0 22px;
+    text-shadow:0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .lang-switch{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .lang-btn{
+    appearance:none;
+    border:none;
+    cursor:pointer;
+    background:rgba(255,255,255,0.96);
+    color:var(--link-blue);
+    font-family:inherit;
+    font-weight:700;
+    font-size:0.98rem;
+    padding:11px 22px;
+    border-radius:999px;
+    box-shadow:0 6px 16px rgba(0,0,0,0.18);
+    transition:background .15s ease, color .15s ease, transform .15s ease;
+  }
+  .lang-btn:active{transform:scale(0.96);}
+  .lang-btn.active{
+    background:var(--teal);
+    color:var(--white);
+  }
+  .lang-btn:focus-visible{
+    outline:3px solid #fff;
+    outline-offset:2px;
+  }
+
+  /* ---------- QUICK ACTIONS ---------- */
+  .quick-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    padding:22px 20px 6px;
+  }
+  .qa-btn{
+    background:var(--white);
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    padding:20px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-weight:800;
+    font-size:1.03rem;
+    color:var(--navy);
+    text-decoration:none;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .qa-btn:active{transform:scale(0.97);}
+  .qa-btn .ic{font-size:1.5rem; line-height:1;}
+  .qa-btn:focus-visible{outline:3px solid var(--teal); outline-offset:2px;}
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .section-heading{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--teal-dark);
+    font-weight:900;
+    font-size:1.45rem;
+    margin:30px 20px 14px;
+  }
+  .section-heading .ic{font-size:1.5rem;}
+
+  .group-divider{
+    margin:38px 20px 4px;
+    padding-top:22px;
+    border-top:2px dashed rgba(51,65,74,0.16);
+  }
+  .group-divider .eyebrow{
+    display:block;
+    text-transform:uppercase;
+    letter-spacing:0.14em;
+    font-size:0.78rem;
+    font-weight:800;
+    color:var(--gold);
+    margin-bottom:6px;
+  }
+  .group-divider h2{
+    font-size:1.62rem;
+    color:var(--navy);
+    margin:0;
+    font-weight:900;
+  }
+
+  .lede{
+    margin:0 20px 18px;
+    font-size:1rem;
+    line-height:1.6;
+    color:var(--navy-soft);
+  }
+  .lede strong{color:var(--navy);}
+
+  /* ---------- CARDS ---------- */
+  .fact-card{
+    background:var(--white);
+    border-radius:16px;
+    padding:16px 20px;
+    margin:0 20px 12px;
+    border-left:5px solid var(--gold);
+    box-shadow:var(--shadow-sm);
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .fact-card .label{
+    font-weight:800;
+    color:var(--navy);
+    font-size:1rem;
+  }
+  .fact-card .value{
+    font-weight:700;
+    color:var(--teal-dark);
+    font-size:1rem;
+  }
+
+  .info-card{
+    background:var(--white);
+    border-radius:18px;
+    padding:18px 20px;
+    margin:0 20px 14px;
+    box-shadow:var(--shadow-sm);
+  }
+  .info-card .card-head{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .info-card .card-head .ic{font-size:1.35rem;}
+  .info-card .card-head h3{
+    margin:0;
+    font-size:1.08rem;
+    font-weight:800;
+    color:var(--navy);
+  }
+  .info-card p{
+    margin:0;
+    font-size:0.98rem;
+    line-height:1.55;
+    color:var(--navy-soft);
+  }
+  .info-card ol{
+    margin:8px 0 0;
+    padding-left:1.2em;
+    font-size:0.98rem;
+    line-height:1.55;
+    color:var(--navy-soft);
+  }
+  .info-card li{margin-bottom:6px;}
+  .info-card li::marker{color:var(--teal-dark); font-weight:800;}
+
+  .badge-100{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-width:1.6em;
+    padding:1px 7px;
+    border-radius:7px;
+    background:var(--cream-alt);
+    color:var(--teal-deep);
+    font-weight:900;
+    font-size:0.92em;
+    border:1px solid var(--gold-soft);
+  }
+
+  /* ---------- ROOM DIRECTORY ---------- */
+  .directory-card{
+    background:var(--white);
+    border-radius:18px;
+    margin:0 20px 14px;
+    box-shadow:var(--shadow-sm);
+    overflow:hidden;
+  }
+  .directory-card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-weight:800;
+    color:var(--navy);
+    font-size:1.05rem;
+  }
+  .directory-card summary::-webkit-details-marker{display:none;}
+  .directory-card summary .chev{
+    color:var(--teal-dark);
+    transition:transform .2s ease;
+    font-size:0.9rem;
+  }
+  .directory-card[open] summary .chev{transform:rotate(180deg);}
+  .directory-body{
+    padding:0 20px 20px;
+  }
+  .directory-note{
+    font-size:0.92rem;
+    color:var(--navy-soft);
+    margin:0 0 14px;
+    line-height:1.5;
+  }
+  .room-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(50px,1fr));
+    gap:8px;
+  }
+  .room-chip{
+    background:var(--cream);
+    border:1px solid var(--cream-alt);
+    border-radius:10px;
+    text-align:center;
+    padding:8px 2px;
+    font-weight:700;
+    font-size:0.84rem;
+    color:var(--navy);
+  }
+
+  /* ---------- FOOTER ---------- */
+  .site-footer{
+    background:linear-gradient(135deg, var(--teal-deep), var(--teal-deepest));
+    color:#fff;
+    padding:34px 24px 30px;
+    text-align:center;
+    margin-top:34px;
+    border-radius:28px 28px 0 0;
+  }
+  .site-footer .tagline{
+    font-weight:800;
+    font-size:1.12rem;
+    margin:0 0 18px;
+  }
+  .footer-links{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    font-size:0.98rem;
+    margin:0 0 16px;
+  }
+  .footer-links a{text-decoration:none; color:#fff; font-weight:700;}
+  .footer-links .flabel{
+    color:rgba(255,255,255,0.6);
+    font-weight:600;
+    margin-right:6px;
+  }
+  .footer-rule{
+    border:none;
+    border-top:1px solid rgba(255,255,255,0.18);
+    margin:16px 0;
+  }
+  .footer-credit{
+    font-size:0.8rem;
+    color:rgba(255,255,255,0.55);
+  }
+
+  @media (max-width:380px){
+    .hero-title{font-size:1.5rem; letter-spacing:0.04em;}
+    .quick-actions{grid-template-columns:1fr 1fr; gap:10px;}
+    .qa-btn{padding:16px 12px; font-size:0.95rem;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
 </head>
 <body>
-<header class="hero">
-<div class="overlay">
-<img src="IMG_3817.PNG" class="logo">
-<h1>KHAN KHIVA HOTEL</h1>
-<p class="subtitle" data-en="Guest Information" data-ru="Информация для гостей" data-uz="Mehmonlar uchun ma'lumot">Guest Information</p>
-<div class="language-switcher">
-<button onclick="setLanguage('en')" class="active" id="btn-en">English</button>
-<button onclick="setLanguage('ru')" id="btn-ru">Русский</button>
-<button onclick="setLanguage('uz')" id="btn-uz">O'zbekcha</button>
-</div>
-</div>
-</header>
+<div class="page">
 
-<div class="container">
-<div class="section">
-<h2 data-en="Welcome" data-ru="Добро пожаловать" data-uz="Xush kelibsiz">Welcome</h2>
-<div class="info-card" data-en="Welcome to Khan Khiva Hotel." data-ru="Добро пожаловать в отель Khan Khiva." data-uz="Khan Khiva mehmonxonasiga xush kelibsiz.">Welcome to Khan Khiva Hotel.</div>
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="logo-badge">
+      <img src="data:image/png;base64,{{LOGO_B64}}" alt="Khan Khiva Hotel">
+    </div>
+    <h1 class="hero-title">KHAN KHIVA HOTEL</h1>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">Guest Information</p>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" class="lang-btn active" data-lang="en" aria-pressed="true">English</button>
+      <button type="button" class="lang-btn" data-lang="ru" aria-pressed="false">Русский</button>
+      <button type="button" class="lang-btn" data-lang="uz" aria-pressed="false">O'zbekcha</button>
+    </div>
+  </header>
+
+  <!-- ================= QUICK ACTIONS ================= -->
+  <nav class="quick-actions" aria-label="Quick actions">
+    <a class="qa-btn" href="tel:+998556023222"><span class="ic">📞</span><span data-i18n="qa_reception">Reception</span></a>
+    <a class="qa-btn" href="#reservations"><span class="ic">🏨</span><span data-i18n="qa_reservations">Reservations</span></a>
+    <a class="qa-btn" href="mailto:info@khankhiva.uz"><span class="ic">✉️</span><span data-i18n="qa_email">Email</span></a>
+    <a class="qa-btn" href="https://khankhiva.uz" target="_blank" rel="noopener"><span class="ic">🌐</span><span data-i18n="qa_website">Website</span></a>
+  </nav>
+
+  <!-- ================= WELCOME ================= -->
+  <section>
+    <h2 class="section-heading"><span class="ic">👋</span><span data-i18n="welcome_heading">Welcome</span></h2>
+    <p class="lede"><strong data-i18n="welcome_greeting">Dear Guest!</strong></p>
+    <p class="lede" data-i18n="welcome_body">Welcome to Khan Khiva Hotel. We are pleased to welcome you and hope your stay will leave you with the best memories of the hotel and the city. It is important for us to offer comfortable accommodation combined with our hospitality. This information sheet contains information about hotel services. If you have any questions or requests, please contact the front desk. Thank you for choosing Khan Khiva.</p>
+  </section>
+
+  <!-- ================= CHECK-IN / CHECK-OUT ================= -->
+  <section>
+    <h2 class="section-heading"><span class="ic">🕐</span><span data-i18n="checkinout_heading">Check-In / Check-Out</span></h2>
+    <div class="fact-card"><span class="label" data-i18n="checkin_label">Check-In</span><span class="value" data-i18n="checkin_value">After 14:00</span></div>
+    <div class="fact-card"><span class="label" data-i18n="checkout_label">Check-Out</span><span class="value" data-i18n="checkout_value">Before 12:00</span></div>
+  </section>
+
+  <!-- ================= PAYMENT ================= -->
+  <section>
+    <h2 class="section-heading"><span class="ic">💳</span><span data-i18n="payment_heading">Payment Cards</span></h2>
+    <div class="info-card"><p data-i18n="payment_body">Uzcard, Humo, Master Card and Visa Card are accepted for payment.</p></div>
+  </section>
+
+  <!-- ================= RESERVATIONS ================= -->
+  <section id="reservations">
+    <h2 class="section-heading"><span class="ic">🏨</span><span data-i18n="reservation_heading">Room Reservation</span></h2>
+    <div class="info-card">
+      <p data-i18n="reservation_body">To book a room, please contact our reservations department at +998 55 602 32 22 or email info@khankhiva.uz.</p>
+    </div>
+  </section>
+
+  <!-- ================= GUEST SERVICES ================= -->
+  <div class="group-divider">
+    <span class="eyebrow" data-i18n="group_guestservices_eyebrow">Guest Services</span>
+    <h2 data-i18n="group_guestservices">Guest Services</h2>
+  </div>
+
+  <section>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🍳</span><h3 data-i18n="breakfast_heading">Breakfast</h3></div>
+      <p data-i18n="breakfast_body">Breakfast is served in the hotel restaurant from 07:00 to 10:00. Requests for a box lunch instead of breakfast are accepted 24 hours before departure.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">📶</span><h3 data-i18n="internet_heading">Internet Access</h3></div>
+      <p data-i18n="internet_body">Free wireless internet is available in your room and in our public areas.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🚑</span><h3 data-i18n="medical_heading">Medical Help</h3></div>
+      <p data-i18n="medical_body">Please press the "100" button on your phone to call for medical assistance.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🐾</span><h3 data-i18n="pets_heading">Pets</h3></div>
+      <p data-i18n="pets_body">Pets are not allowed.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🔌</span><h3 data-i18n="electricity_heading">Electricity</h3></div>
+      <p data-i18n="electricity_body">The hotel voltage is 220 volts. If you require an adapter, please press "100".</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🚨</span><h3 data-i18n="guestemergency_heading">Emergency</h3></div>
+      <p data-i18n="guestemergency_body">In case of emergency, press the "100" button on your phone.</p>
+    </div>
+  </section>
+
+  <!-- ================= FACILITIES ================= -->
+  <div class="group-divider">
+    <span class="eyebrow" data-i18n="group_facilities_eyebrow">Facilities</span>
+    <h2 data-i18n="group_facilities">Facilities</h2>
+  </div>
+
+  <section>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">💆</span><h3 data-i18n="fitnessspa_heading">Fitness &amp; Spa Center</h3></div>
+      <p data-i18n="fitnessspa_body">Located on the first floor. You can order the service at the reception desk.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🧺</span><h3 data-i18n="laundry_heading">Laundry</h3></div>
+      <p data-i18n="laundry_body">The laundry price list and laundry bag are in your wardrobe.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🧺</span><h3 data-i18n="laundryservice_heading">Laundry Service</h3></div>
+      <p data-i18n="laundryservice_body">Please dial "100" to order this service.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🧊</span><h3 data-i18n="minifridge_heading">Mini Fridge</h3></div>
+      <p data-i18n="minifridge_body">There is a mini refrigerator in the room.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">❄️</span><h3 data-i18n="ac_heading">Air Conditioning</h3></div>
+      <p data-i18n="ac_body">The thermostat should operate in "cool" mode in warm weather and "heat" mode in cold weather.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🖨️</span><h3 data-i18n="printing_heading">Printing &amp; Copying</h3></div>
+      <p data-i18n="printing_body">Please dial "100".</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🔒</span><h3 data-i18n="safes_heading">Safes</h3></div>
+      <p data-i18n="safes_body">Each room has an electric safe for your valuables.</p>
+    </div>
+  </section>
+
+  <!-- ================= IN-ROOM SERVICES ================= -->
+  <div class="group-divider">
+    <span class="eyebrow" data-i18n="group_inroom_eyebrow">In-Room Services</span>
+    <h2 data-i18n="group_inroom">In-Room Services</h2>
+  </div>
+
+  <section>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">☎️</span><h3 data-i18n="telephone_heading">Telephone</h3></div>
+      <p data-i18n="telephone_body">Calls within the city are free. International calls can be made at the front desk for an additional fee.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🚗</span><h3 data-i18n="transport_heading">Transport</h3></div>
+      <p data-i18n="transport_body">Please dial "100".</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🧹</span><h3 data-i18n="roomclean_heading">Room Cleaning</h3></div>
+      <p data-i18n="roomclean_body">Hang a "Please make up room" card on the front door handle.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🚪</span><h3 data-i18n="donotdisturb_heading">Do Not Disturb</h3></div>
+      <p data-i18n="donotdisturb_body">If you wish not to be disturbed, hang a "Do Not Disturb" sign on your doorknob.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">👶</span><h3 data-i18n="babycot_heading">Baby Cot</h3></div>
+      <p data-i18n="babycot_body">If your child requires a cot, please press "100". If possible, please give us notice in advance, preferably 24 hours.</p>
+    </div>
+  </section>
+
+  <!-- ================= ADDITIONAL SERVICES ================= -->
+  <div class="group-divider">
+    <span class="eyebrow" data-i18n="group_additional_eyebrow">Additional Services</span>
+    <h2 data-i18n="group_additional">Additional Services</h2>
+  </div>
+
+  <section>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🧖</span><h3 data-i18n="sauna_heading">Sauna</h3></div>
+      <p data-i18n="sauna_body">For an additional fee, the hotel offers a Finnish sauna and jacuzzi. Please contact the administration or dial "100".</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">💆‍♀️</span><h3 data-i18n="massage_heading">Massage</h3></div>
+      <p data-i18n="massage_body">For an additional fee, private massage service is available. Please contact the administration or dial "100".</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🚐</span><h3 data-i18n="transfer_heading">Transfer Services</h3></div>
+      <p data-i18n="transfer_body">Private transfer service is available for an additional fee. Please contact the administration or dial "100".</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🚲</span><h3 data-i18n="bike_heading">Bike Rental</h3></div>
+      <p data-i18n="bike_body">Bicycle rental is available for an additional fee. Please contact the administration or dial "100".</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🗺️</span><h3 data-i18n="guide_heading">Guide &amp; Excursion Services</h3></div>
+      <p data-i18n="guide_body">Guide and excursion services are available for an additional fee. Please contact the administration or dial "100".</p>
+    </div>
+  </section>
+
+  <!-- ================= FIRE SAFETY ================= -->
+  <div class="group-divider">
+    <span class="eyebrow" data-i18n="group_firesafety_eyebrow">Fire Safety</span>
+    <h2 data-i18n="group_firesafety">Fire Safety</h2>
+  </div>
+
+  <section>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🔥</span><h3 data-i18n="fireincase_heading">In Case of Fire</h3></div>
+      <p data-i18n="fireincase_body">Call the hotel operator to report the fire alarm. If possible, take your room key and leave the building.</p>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🚪</span><h3 data-i18n="fireevac_heading">Evacuation Due to Fire Alarm</h3></div>
+      <ol>
+        <li data-i18n="fireevac_1">Take your room key and carefully move towards the exit.</li>
+        <li data-i18n="fireevac_2">Carefully touch the door and handle; if they are hot, proceed with extreme caution.</li>
+        <li data-i18n="fireevac_3">If they are not hot, open the door carefully and be prepared to close it quickly.</li>
+        <li data-i18n="fireevac_4">If the corridor is smoky, stay as close to the floor as possible.</li>
+        <li data-i18n="fireevac_5">If possible, crawl on all fours.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= EMERGENCY INSTRUCTIONS ================= -->
+  <div class="group-divider">
+    <span class="eyebrow" data-i18n="group_emergencyinstructions_eyebrow">Emergency Instructions</span>
+    <h2 data-i18n="group_emergencyinstructions">Emergency Instructions</h2>
+  </div>
+
+  <section>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">⚠️</span><h3 data-i18n="cannotleave_heading">If You Cannot Leave the Room</h3></div>
+      <ol>
+        <li data-i18n="cannotleave_1">Turn off the air conditioner.</li>
+        <li data-i18n="cannotleave_2">Call the operator and report your location.</li>
+        <li data-i18n="cannotleave_3">Do not open or break windows.</li>
+        <li data-i18n="cannotleave_4">Place wet towels, sheets or curtains around the door and over the vents.</li>
+        <li data-i18n="cannotleave_5">If necessary, use a wastebasket to draw water from the sink.</li>
+        <li data-i18n="cannotleave_6">If smoke continues to enter, build a wet blanket shelter overhead.</li>
+        <li data-i18n="cannotleave_7">Do not open or break windows if smoke or flames are coming from lower floors.</li>
+      </ol>
+    </div>
+    <div class="info-card">
+      <div class="card-head"><span class="ic">🛡️</span><h3 data-i18n="forsafety_heading">For Your Safety</h3></div>
+      <p data-i18n="forsafety_body">We strongly encourage our guests to review the evacuation plan located on the inside of their room door in advance.</p>
+    </div>
+  </section>
+
+  <!-- ================= ROOM DIRECTORY ================= -->
+  <section>
+    <h2 class="section-heading"><span class="ic">📋</span><span data-i18n="directory_heading">Room Directory</span></h2>
+    <details class="directory-card" id="directoryDetails">
+      <summary><span data-i18n="directory_toggle">View room extensions</span><span class="chev">▼</span></summary>
+      <div class="directory-body">
+        <p class="directory-note" data-i18n="directory_note">Reception / Administration — 100. Dial the room number from any in-room phone to reach that room directly.</p>
+        <div class="room-grid" id="roomGrid"></div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <p class="tagline" data-i18n="footer_tagline">Thank you for staying with us.</p>
+    <div class="footer-links">
+      <div><span class="flabel" data-i18n="footer_website_label">Website</span><a href="https://khankhiva.uz" target="_blank" rel="noopener">khankhiva.uz</a></div>
+      <div><span class="flabel" data-i18n="footer_email_label">Email</span><a href="mailto:info@khankhiva.uz">info@khankhiva.uz</a></div>
+      <div><span class="flabel" data-i18n="footer_reception_label">Reception</span><a href="tel:+998556023222">+998 55 602 32 22</a></div>
+    </div>
+    <hr class="footer-rule">
+    <p class="footer-credit">Khan Khiva Hotel</p>
+  </footer>
+
 </div>
 
-<div class="section">
-<h2 data-en="Internet Access" data-ru="Доступ в Интернет" data-uz="Internetga kirish">Internet Access</h2>
-<div class="info-card"
-data-en="Free wireless internet is available in your room and in our public areas."
-data-ru="Беспроводной доступ в Интернет предоставляется бесплатно в Вашем номере и в общественных местах."
-data-uz="Xonangizda va umumiy hududlarda bepul simsiz internet mavjud.">
-Free wireless internet is available in your room and in our public areas.
-</div>
-</div>
+<script>
+  const I18N = {
+    en: {
+      hero_subtitle: "Guest Information",
+      qa_reception: "Reception",
+      qa_reservations: "Reservations",
+      qa_email: "Email",
+      qa_website: "Website",
+      welcome_heading: "Welcome",
+      welcome_greeting: "Dear Guest!",
+      welcome_body: "Welcome to Khan Khiva Hotel. We are pleased to welcome you and hope your stay will leave you with the best memories of the hotel and the city. It is important for us to offer comfortable accommodation combined with our hospitality. This information sheet contains information about hotel services. If you have any questions or requests, please contact the front desk. Thank you for choosing Khan Khiva.",
+      checkinout_heading: "Check-In / Check-Out",
+      checkin_label: "Check-In",
+      checkin_value: "After 14:00",
+      checkout_label: "Check-Out",
+      checkout_value: "Before 12:00",
+      payment_heading: "Payment Cards",
+      payment_body: "Uzcard, Humo, Master Card and Visa Card are accepted for payment.",
+      reservation_heading: "Room Reservation",
+      reservation_body: "To book a room, please contact our reservations department at +998 55 602 32 22 or email info@khankhiva.uz.",
+      group_guestservices_eyebrow: "For your stay",
+      group_guestservices: "Guest Services",
+      breakfast_heading: "Breakfast",
+      breakfast_body: "Breakfast is served in the hotel restaurant from 07:00 to 10:00. Requests for a box lunch instead of breakfast are accepted 24 hours before departure.",
+      internet_heading: "Internet Access",
+      internet_body: "Free wireless internet is available in your room and in our public areas.",
+      medical_heading: "Medical Help",
+      medical_body: "Please press the \u201c100\u201d button on your phone to call for medical assistance.",
+      pets_heading: "Pets",
+      pets_body: "Pets are not allowed.",
+      electricity_heading: "Electricity",
+      electricity_body: "The hotel voltage is 220 volts. If you require an adapter, please press \u201c100\u201d.",
+      guestemergency_heading: "Emergency",
+      guestemergency_body: "In case of emergency, press the \u201c100\u201d button on your phone.",
+      group_facilities_eyebrow: "Around the hotel",
+      group_facilities: "Facilities",
+      fitnessspa_heading: "Fitness & Spa Center",
+      fitnessspa_body: "Located on the first floor. You can order the service at the reception desk.",
+      laundry_heading: "Laundry",
+      laundry_body: "The laundry price list and laundry bag are in your wardrobe.",
+      laundryservice_heading: "Laundry Service",
+      laundryservice_body: "Please dial \u201c100\u201d to order this service.",
+      minifridge_heading: "Mini Fridge",
+      minifridge_body: "There is a mini refrigerator in the room.",
+      ac_heading: "Air Conditioning",
+      ac_body: "The thermostat should operate in \u201ccool\u201d mode in warm weather and \u201cheat\u201d mode in cold weather.",
+      printing_heading: "Printing & Copying",
+      printing_body: "Please dial \u201c100\u201d.",
+      safes_heading: "Safes",
+      safes_body: "Each room has an electric safe for your valuables.",
+      group_inroom_eyebrow: "In your room",
+      group_inroom: "In-Room Services",
+      telephone_heading: "Telephone",
+      telephone_body: "Calls within the city are free. International calls can be made at the front desk for an additional fee.",
+      transport_heading: "Transport",
+      transport_body: "Please dial \u201c100\u201d.",
+      roomclean_heading: "Room Cleaning",
+      roomclean_body: "Hang a \u201cPlease make up room\u201d card on the front door handle.",
+      donotdisturb_heading: "Do Not Disturb",
+      donotdisturb_body: "If you wish not to be disturbed, hang a \u201cDo Not Disturb\u201d sign on your doorknob.",
+      babycot_heading: "Baby Cot",
+      babycot_body: "If your child requires a cot, please press \u201c100\u201d. If possible, please give us notice in advance, preferably 24 hours.",
+      group_additional_eyebrow: "Make it special",
+      group_additional: "Additional Services",
+      sauna_heading: "Sauna",
+      sauna_body: "For an additional fee, the hotel offers a Finnish sauna and jacuzzi. Please contact the administration or dial \u201c100\u201d.",
+      massage_heading: "Massage",
+      massage_body: "For an additional fee, private massage service is available. Please contact the administration or dial \u201c100\u201d.",
+      transfer_heading: "Transfer Services",
+      transfer_body: "Private transfer service is available for an additional fee. Please contact the administration or dial \u201c100\u201d.",
+      bike_heading: "Bike Rental",
+      bike_body: "Bicycle rental is available for an additional fee. Please contact the administration or dial \u201c100\u201d.",
+      guide_heading: "Guide & Excursion Services",
+      guide_body: "Guide and excursion services are available for an additional fee. Please contact the administration or dial \u201c100\u201d.",
+      group_firesafety_eyebrow: "Please read",
+      group_firesafety: "Fire Safety",
+      fireincase_heading: "In Case of Fire",
+      fireincase_body: "Call the hotel operator to report the fire alarm. If possible, take your room key and leave the building.",
+      fireevac_heading: "Evacuation Due to Fire Alarm",
+      fireevac_1: "Take your room key and carefully move towards the exit.",
+      fireevac_2: "Carefully touch the door and handle; if they are hot, proceed with extreme caution.",
+      fireevac_3: "If they are not hot, open the door carefully and be prepared to close it quickly.",
+      fireevac_4: "If the corridor is smoky, stay as close to the floor as possible.",
+      fireevac_5: "If possible, crawl on all fours.",
+      group_emergencyinstructions_eyebrow: "Please read",
+      group_emergencyinstructions: "Emergency Instructions",
+      cannotleave_heading: "If You Cannot Leave the Room",
+      cannotleave_1: "Turn off the air conditioner.",
+      cannotleave_2: "Call the operator and report your location.",
+      cannotleave_3: "Do not open or break windows.",
+      cannotleave_4: "Place wet towels, sheets or curtains around the door and over the vents.",
+      cannotleave_5: "If necessary, use a wastebasket to draw water from the sink.",
+      cannotleave_6: "If smoke continues to enter, build a wet blanket shelter overhead.",
+      cannotleave_7: "Do not open or break windows if smoke or flames are coming from lower floors.",
+      forsafety_heading: "For Your Safety",
+      forsafety_body: "We strongly encourage our guests to review the evacuation plan located on the inside of their room door in advance.",
+      directory_heading: "Room Directory",
+      directory_toggle: "View room extensions",
+      directory_note: "Reception / Administration \u2014 100. Dial the room number from any in-room phone to reach that room directly.",
+      footer_tagline: "Thank you for staying with us.",
+      footer_website_label: "Website",
+      footer_email_label: "Email",
+      footer_reception_label: "Reception"
+    },
+    ru: {
+      hero_subtitle: "Гостевая информация",
+      qa_reception: "Ресепшн",
+      qa_reservations: "Бронирование",
+      qa_email: "Email",
+      qa_website: "Сайт",
+      welcome_heading: "Добро пожаловать",
+      welcome_greeting: "Уважаемый Гость!",
+      welcome_body: "Добро пожаловать в отель Khan Khiva. Мы рады приветствовать Вас в нашем отеле и надеемся, что пребывание здесь оставит только лучшие воспоминания об отеле и городе. Для нас важно предложить Вам комфортное проживание в сочетании с нашим гостеприимством. Данный инфо-лист содержит информацию об услугах, предоставляемых отелем. По вопросам и пожеланиям обращайтесь на стойку регистрации. Благодарим Вас за выбор Khan Khiva.",
+      checkinout_heading: "Заезд и выезд",
+      checkin_label: "Заезд",
+      checkin_value: "После 14:00",
+      checkout_label: "Выезд",
+      checkout_value: "До 12:00",
+      payment_heading: "Платёжные карты",
+      payment_body: "К оплате принимаются карты Uzcard, Humo, Master Card, Visa Card.",
+      reservation_heading: "Бронирование номеров",
+      reservation_body: "Для бронирования номера свяжитесь с отделом бронирования по телефону +998 55 602 32 22 или по email: info@khankhiva.uz.",
+      group_guestservices_eyebrow: "Ваше проживание",
+      group_guestservices: "Услуги для гостей",
+      breakfast_heading: "Завтрак",
+      breakfast_body: "Завтрак проходит в ресторане отеля с 07:00 до 10:00. Заявки на бокс-ланч вместо завтрака принимаются за 24 часа до выезда.",
+      internet_heading: "Доступ в интернет",
+      internet_body: "Беспроводной доступ в Интернет предоставляется бесплатно в Вашем номере и в общественных местах.",
+      medical_heading: "Медицинская помощь",
+      medical_body: "Нажмите кнопку «100» на телефоне для вызова медицинской помощи.",
+      pets_heading: "Домашние питомцы",
+      pets_body: "Домашние животные не допускаются.",
+      electricity_heading: "Электричество",
+      electricity_body: "Напряжение в отеле составляет 220 вольт. Если требуется адаптер, нажмите кнопку «100».",
+      guestemergency_heading: "Экстренная связь",
+      guestemergency_body: "В случае чрезвычайной ситуации нажмите кнопку «100» на телефоне.",
+      group_facilities_eyebrow: "В отеле",
+      group_facilities: "Удобства",
+      fitnessspa_heading: "Фитнес и SPA-центр",
+      fitnessspa_body: "Расположен на первом этаже. Услугу можно заказать на стойке регистрации.",
+      laundry_heading: "Прачечная",
+      laundry_body: "Прайс-лист на чистку белья и пакет для белья находятся в Вашем гардеробе.",
+      laundryservice_heading: "Услуги прачечной",
+      laundryservice_body: "Наберите «100» для заказа данной услуги.",
+      minifridge_heading: "Мини-холодильник",
+      minifridge_body: "В номере есть мини-холодильник.",
+      ac_heading: "Кондиционирование",
+      ac_body: "Термостат должен работать в режиме «cool» в тёплое время и в режиме «heat» в холодное время.",
+      printing_heading: "Печать и копирование",
+      printing_body: "Пожалуйста, наберите «100».",
+      safes_heading: "Сейфы",
+      safes_body: "В каждом номере есть электрический сейф для Ваших ценностей.",
+      group_inroom_eyebrow: "В номере",
+      group_inroom: "Услуги в номере",
+      telephone_heading: "Телефон",
+      telephone_body: "Звонки по городу бесплатны. Международные звонки осуществляются на стойке регистрации и за дополнительную плату.",
+      transport_heading: "Транспорт",
+      transport_body: "Пожалуйста, наберите «100».",
+      roomclean_heading: "Уборка номера",
+      roomclean_body: "Повесьте на ручку двери карту «Please make up room».",
+      donotdisturb_heading: "Не беспокоить",
+      donotdisturb_body: "Если Вы не хотите, чтобы Вас беспокоили, повесьте табличку «Do not disturb» на ручке двери.",
+      babycot_heading: "Детская кроватка",
+      babycot_body: "Если ребёнку необходима детская кроватка, нажмите «100». По возможности предупредите нас заранее, желательно за 24 часа.",
+      group_additional_eyebrow: "Особые впечатления",
+      group_additional: "Дополнительные услуги",
+      sauna_heading: "Сауна",
+      sauna_body: "За дополнительную плату предлагаются финская сауна и джакузи. Обратитесь к администрации или наберите «100».",
+      massage_heading: "Массаж",
+      massage_body: "За дополнительную плату предлагаются услуги частного массажиста. Обратитесь к администрации или наберите «100».",
+      transfer_heading: "Услуги трансфера",
+      transfer_body: "За дополнительную плату предлагается услуга трансфера. Обратитесь к администрации или наберите «100».",
+      bike_heading: "Аренда велосипеда",
+      bike_body: "За дополнительную плату предлагается аренда велосипедов. Обратитесь к администрации или наберите «100».",
+      guide_heading: "Услуги гида и экскурсии",
+      guide_body: "За дополнительную плату предлагаются услуги гида. Обратитесь к администрации или наберите «100».",
+      group_firesafety_eyebrow: "Пожалуйста, ознакомьтесь",
+      group_firesafety: "Пожарная безопасность",
+      fireincase_heading: "В случае пожара",
+      fireincase_body: "Позвоните оператору отеля для сообщения о пожарной тревоге. Если возможно, возьмите ключ от номера и покиньте здание.",
+      fireevac_heading: "Эвакуация по сигналу пожарной тревоги",
+      fireevac_1: "Возьмите ключ от номера и осторожно двигайтесь к выходу.",
+      fireevac_2: "Осторожно прикоснитесь к двери и ручке; если они горячие, действуйте с особой осторожностью.",
+      fireevac_3: "Если дверь и ручка не горячие, осторожно откройте дверь и будьте готовы быстро её закрыть.",
+      fireevac_4: "При задымлённости коридора держитесь как можно ближе к полу.",
+      fireevac_5: "По возможности ползите на четвереньках.",
+      group_emergencyinstructions_eyebrow: "Пожалуйста, ознакомьтесь",
+      group_emergencyinstructions: "Экстренные инструкции",
+      cannotleave_heading: "Если Вы не можете покинуть комнату",
+      cannotleave_1: "Выключите кондиционер.",
+      cannotleave_2: "Позвоните оператору и сообщите о своём местонахождении.",
+      cannotleave_3: "Не открывайте и не разбивайте окна.",
+      cannotleave_4: "Разместите мокрые полотенца, простыни или шторы вокруг двери и вентиляционных отверстий.",
+      cannotleave_5: "При необходимости используйте мусорную корзину для воды из раковины.",
+      cannotleave_6: "Если дым продолжает проникать, соорудите над головой защиту из мокрого одеяла.",
+      cannotleave_7: "Не открывайте и не разбивайте окна, если дым или пламя проникают с нижних этажей.",
+      forsafety_heading: "В целях собственной безопасности",
+      forsafety_body: "Мы настоятельно рекомендуем заранее изучить план эвакуации, расположенный на внутренней стороне двери вашего номера.",
+      directory_heading: "Справочник номеров",
+      directory_toggle: "Показать номера комнат",
+      directory_note: "Ресепшн / Администрация \u2014 100. Наберите номер комнаты с любого телефона в отеле, чтобы позвонить в этот номер напрямую.",
+      footer_tagline: "Благодарим Вас за выбор Khan Khiva.",
+      footer_website_label: "Сайт",
+      footer_email_label: "Email",
+      footer_reception_label: "Ресепшн"
+    },
+    uz: {
+      hero_subtitle: "Mehmon axboroti",
+      qa_reception: "Resepsiya",
+      qa_reservations: "Bron qilish",
+      qa_email: "Email",
+      qa_website: "Veb-sayt",
+      welcome_heading: "Xush kelibsiz",
+      welcome_greeting: "Hurmatli Mehmon!",
+      welcome_body: "Khan Khiva mehmonxonasiga xush kelibsiz. Sizni mehmonxonamizda kutib olishdan mamnunmiz. Umid qilamizki, bu yerda bo\u2018lishingizda shahar va mehmonxona haqidagi eng yaxshi xotiralar qoladi. Biz uchun Sizga qulay yashash sharoitlarini samimiy mehmondo\u2018stlik bilan uyg\u2018unlashtirish muhim. Ushbu ma\u2019lumotnomada mehmonxona xizmatlari haqida ma\u2019lumot berilgan. Savol va istaklaringiz bo\u2018lsa, resepsiyaga murojaat qiling. Khan Khivani tanlaganingiz uchun rahmat.",
+      checkinout_heading: "Kirish va chiqish vaqti",
+      checkin_label: "Kirish",
+      checkin_value: "14:00 dan keyin",
+      checkout_label: "Chiqish",
+      checkout_value: "12:00 gacha",
+      payment_heading: "To\u2018lov kartalari",
+      payment_body: "To\u2018lov uchun Uzcard, Humo, Master Card va Visa Card kartalari qabul qilinadi.",
+      reservation_heading: "Xona bron qilish",
+      reservation_body: "Xonani bron qilish uchun +998 55 602 32 22 raqamiga qo\u2018ng\u2018iroq qiling yoki info@khankhiva.uz elektron manziliga yozing.",
+      group_guestservices_eyebrow: "Turar joyingiz",
+      group_guestservices: "Mehmonlar uchun xizmatlar",
+      breakfast_heading: "Nonushta",
+      breakfast_body: "Nonushta mehmonxona restoranida 07:00\u201310:00 oralig\u2018ida beriladi. Nonushta o\u2018rniga box-lunch buyurtmalari jo\u2018nab ketishdan 24 soat oldin qabul qilinadi.",
+      internet_heading: "Internetga kirish",
+      internet_body: "Xonangizda va umumiy hududlarda bepul simsiz internet mavjud.",
+      medical_heading: "Tibbiy yordam",
+      medical_body: "Tibbiy yordam chaqirish uchun telefondagi \u201c100\u201d tugmasini bosing.",
+      pets_heading: "Uy hayvonlari",
+      pets_body: "Uy hayvonlarini qabul qilmaymiz.",
+      electricity_heading: "Elektr toki",
+      electricity_body: "Mehmonxonadagi kuchlanish 220 volt. Adapter kerak bo\u2018lsa, \u201c100\u201d tugmasini bosing.",
+      guestemergency_heading: "Favqulodda holat",
+      guestemergency_body: "Favqulodda vaziyatda telefondagi \u201c100\u201d tugmasini bosing.",
+      group_facilities_eyebrow: "Mehmonxonada",
+      group_facilities: "Qulayliklar",
+      fitnessspa_heading: "Fitnes va SPA markazi",
+      fitnessspa_body: "Birinchi qavatda joylashgan. Xizmatni resepsiyada buyurtma qilishingiz mumkin.",
+      laundry_heading: "Kir yuvish xonasi",
+      laundry_body: "Kir yuvish narxlari va kir uchun paket kiyim shkafingizda joylashgan.",
+      laundryservice_heading: "Kir yuvish xizmati",
+      laundryservice_body: "Ushbu xizmatni buyurtma qilish uchun \u201c100\u201d raqamini bosing.",
+      minifridge_heading: "Mini bar",
+      minifridge_body: "Xonangizda mini sovutgich mavjud.",
+      ac_heading: "Konditsioner",
+      ac_body: "Termostat iliq paytda \u201ccool\u201d, sovuq paytda \u201cheat\u201d rejimida ishlashi kerak.",
+      printing_heading: "Chop etish va nusxa olish",
+      printing_body: "\u201c100\u201d raqamini bosing.",
+      safes_heading: "Seyflar",
+      safes_body: "Har bir xonada qimmatbaho buyumlaringiz uchun elektr seyf mavjud.",
+      group_inroom_eyebrow: "Xonangizda",
+      group_inroom: "Xonadagi xizmatlar",
+      telephone_heading: "Telefon",
+      telephone_body: "Shahar ichidagi qo\u2018ng\u2018iroqlar bepul. Xalqaro qo\u2018ng\u2018iroqlar resepsiyada qo\u2018shimcha to\u2018lov evaziga amalga oshiriladi.",
+      transport_heading: "Transport",
+      transport_body: "\u201c100\u201d raqamini bosing.",
+      roomclean_heading: "Xonani tozalash",
+      roomclean_body: "Eshik tutqichiga \u201cPlease make up room\u201d kartasini osib qo\u2018ying.",
+      donotdisturb_heading: "Xalaqit bermang",
+      donotdisturb_body: "Agar Sizni bezovta qilishmasligini istasangiz, eshik tutqichiga \u201cDo not disturb\u201d belgisi osib qo\u2018ying.",
+      babycot_heading: "Bolalar krovati",
+      babycot_body: "Agar bolangizga bolalar krovati kerak bo\u2018lsa, \u201c100\u201d tugmasini bosing. Imkon qadar oldindan, yaxshisi 24 soat avval xabar bering.",
+      group_additional_eyebrow: "Alohida xizmatlar",
+      group_additional: "Qo\u2018shimcha xizmatlar",
+      sauna_heading: "Sauna",
+      sauna_body: "Qo\u2018shimcha haq evaziga fin saunasi va jakuzi taklif etiladi. Ma\u2019muriyatga murojaat qiling yoki \u201c100\u201d raqamini bosing.",
+      massage_heading: "Massaj",
+      massage_body: "Qo\u2018shimcha haq evaziga xususiy massaj xizmati mavjud. Ma\u2019muriyatga murojaat qiling yoki \u201c100\u201d raqamini bosing.",
+      transfer_heading: "Transfer xizmati",
+      transfer_body: "Qo\u2018shimcha haq evaziga transfer xizmati mavjud. Ma\u2019muriyatga murojaat qiling yoki \u201c100\u201d raqamini bosing.",
+      bike_heading: "Velosiped ijarasi",
+      bike_body: "Qo\u2018shimcha haq evaziga velosiped ijarasi mavjud. Ma\u2019muriyatga murojaat qiling yoki \u201c100\u201d raqamini bosing.",
+      guide_heading: "Gid va ekskursiya xizmatlari",
+      guide_body: "Qo\u2018shimcha haq evaziga gid va ekskursiya xizmatlari mavjud. Ma\u2019muriyatga murojaat qiling yoki \u201c100\u201d raqamini bosing.",
+      group_firesafety_eyebrow: "Iltimos, o\u2018qing",
+      group_firesafety: "Yong\u2018in xavfsizligi",
+      fireincase_heading: "Yong\u2018in chiqsa",
+      fireincase_body: "Yong\u2018in haqida signal berish uchun mehmonxona operatoriga qo\u2018ng\u2018iroq qiling. Imkon bo\u2018lsa, xona kalitingizni oling va binoni tark eting.",
+      fireevac_heading: "Yong\u2018in signali bo\u2018lganda evakuatsiya",
+      fireevac_1: "Xona kalitingizni oling va chiqish tomon ehtiyotkorlik bilan harakat qiling.",
+      fireevac_2: "Eshik va tutqichga ehtiyotkorlik bilan teging; agar ular issiq bo\u2018lsa, juda ehtiyot bo\u2018ling.",
+      fireevac_3: "Agar ular issiq bo\u2018lmasa, eshikni ehtiyotkorlik bilan oching va zarur bo\u2018lsa tezda yopishga tayyor bo\u2018ling.",
+      fireevac_4: "Yo\u2018lak tutunli bo\u2018lsa, polga imkon qadar yaqin harakat qiling.",
+      fireevac_5: "Imkon bo\u2018lsa, emaklab harakatlaning.",
+      group_emergencyinstructions_eyebrow: "Iltimos, o\u2018qing",
+      group_emergencyinstructions: "Favqulodda ko\u2018rsatmalar",
+      cannotleave_heading: "Xonadan chiqa olmasangiz",
+      cannotleave_1: "Konditsionerni o\u2018chiring.",
+      cannotleave_2: "Operatorga qo\u2018ng\u2018iroq qilib, joylashuvingizni xabar qiling.",
+      cannotleave_3: "Derazalarni ochmang yoki sindirmang.",
+      cannotleave_4: "Eshik atrofi va shamollatish teshiklariga nam sochiq, choyshab yoki pardalarni joylashtiring.",
+      cannotleave_5: "Zarur bo\u2018lsa, rakovinadan suv olish uchun axlat savatidan foydalaning.",
+      cannotleave_6: "Tutun xonaga kirishda davom etsa, nam adyoldan bosh ustida himoya hosil qiling.",
+      cannotleave_7: "Pastki qavatlardan tutun yoki alanga kirayotgan bo\u2018lsa, derazalarni ochmang yoki sindirmang.",
+      forsafety_heading: "O\u2018z xavfsizligingiz uchun",
+      forsafety_body: "Xonangiz eshigining ichki tomonida joylashgan evakuatsiya rejasini oldindan ko\u2018rib chiqishingizni qat\u2019iy tavsiya qilamiz.",
+      directory_heading: "Xonalar ro\u2018yxati",
+      directory_toggle: "Xona raqamlarini ko\u2018rish",
+      directory_note: "Resepsiya / Ma\u2019muriyat \u2014 100. Shu xonaga to\u2018g\u2018ridan-to\u2018g\u2018ri qo\u2018ng\u2018iroq qilish uchun xona raqamini istalgan xona telefonidan tering.",
+      footer_tagline: "Khan Khivani tanlaganingiz uchun rahmat.",
+      footer_website_label: "Veb-sayt",
+      footer_email_label: "Email",
+      footer_reception_label: "Resepsiya"
+    }
+  };
 
-<div class="section">
-<h2 data-en="Medical Help" data-ru="Медицинская помощь" data-uz="Tibbiy yordam">Medical Help</h2>
-<div class="info-card"
-data-en='Please press the "100" button on your phone to call for medical assistance.'
-data-ru='Нажмите кнопку "100" на телефоне для вызова медицинской помощи.'
-data-uz='Tibbiy yordam chaqirish uchun telefondagi "100" tugmasini bosing.'>
-Please press the "100" button on your phone to call for medical assistance.
-</div>
-</div>
-</div>
+  function applyLanguage(lang){
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      var dict = I18N[lang] || I18N.en;
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      var isActive = btn.getAttribute('data-lang') === lang;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+  }
 
-<script src="script.js"></script>
+  document.querySelectorAll('.lang-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      applyLanguage(btn.getAttribute('data-lang'));
+    });
+  });
+
+  // Build room directory grid (room number = extension number)
+  (function(){
+    var rooms = [];
+    for (var i = 101; i <= 121; i++) rooms.push(i);
+    for (var j = 201; j <= 221; j++) rooms.push(j);
+    var grid = document.getElementById('roomGrid');
+    grid.innerHTML = rooms.map(function(r){ return '<div class="room-chip">' + r + '</div>'; }).join('');
+  })();
+
+  applyLanguage('en');
+</script>
 </body>
 </html>
