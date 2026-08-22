@@ -21,7 +21,7 @@ color:var(--dark);
 height:70vh;
 background:
 linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
-url('images/IMG_5855.JPG');
+url('IMG_5855.JPG');
 background-size:cover;
 background-position:center;
 display:flex;
